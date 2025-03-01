@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.21)
 
 PROJECT(WorldImporter)
 
@@ -31,7 +31,7 @@ if (PROJECT_IS_TOP_LEVEL)
 
     ADD_EXECUTABLE(WorldImporter 
     WorldImporter/main.cpp)
-    TARGET_LINK_LIBRARIES(WorldImporter libWorldImporter SDL2-static zip)
+    TARGET_LINK_LIBRARIES(WorldImporter libWorldImporter)
 
 	ADD_CUSTOM_COMMAND(
 		TARGET WorldImporter
