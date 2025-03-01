@@ -43,7 +43,7 @@ if (PROJECT_IS_TOP_LEVEL)
 
     ADD_EXECUTABLE(WorldImporter 
     WorldImporter/main.cpp)
-    TARGET_LINK_LIBRARIES(WorldImporter libWorldImporter SDL2-static zip zlibstatic)
+    TARGET_LINK_LIBRARIES(WorldImporter libWorldImporter SDL2-static zip)
 
 	ADD_CUSTOM_COMMAND(
 		TARGET WorldImporter
