@@ -6,16 +6,18 @@ LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 INCLUDE(cmake/ModuleImport.cmake)
 INCLUDE(cmake/ModuleCompileOptions.cmake)
 ModuleSetCompileOptions()
-ModuleSetWinCompilerFlags()
+#ModuleSetWinCompilerFlags()
 
+add_definitions(-DUNICODE -D_UNICODE)
 ModuleImport("dmsdl2" "thirdparty/dmsdl2")
-LibImportDepends("blastem" "thirdparty/blastem" "")
+ModuleImport("libzip" "thirdparty/libzip")
 
 INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/include/nlohmann")
 INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/include")
 INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter")
-INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/blastem")
-
+INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip")
+INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip/lib")
+INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/thirdparty/libzip")
 
 ADD_LIBRARY(libWorldImporter 
     WorldImporter/biome.cpp
@@ -42,6 +44,6 @@ if (PROJECT_IS_TOP_LEVEL)
     ADD_EXECUTABLE(main 
     WorldImporter/main.cpp)
     TARGET_LINK_LIBRARIES(main libWorldImporter SDL2-static)
-	add_dependencies(main blastem )
+	add_dependencies(main zip )
 endif(PROJECT_IS_TOP_LEVEL)
 
