@@ -8,6 +8,10 @@ INCLUDE(cmake/ModuleCompileOptions.cmake)
 ModuleSetCompileOptions()
 #ModuleSetWinCompilerFlags()
 
+if(NOT WIN32)
+    message(FATAL_ERROR "This project only supports Windows platforms.")
+endif()
+
 add_definitions(-DUNICODE -D_UNICODE -DZIP_STATIC)
 ModuleImport("dmsdl2" "thirdparty/dmsdl2")
 ModuleImport("libzip" "thirdparty/libzip")

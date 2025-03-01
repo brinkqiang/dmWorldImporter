@@ -14,3 +14,4 @@ CMakeUserPresets.json
 build/
 bin/
 .vscode/
+thirdparty/dmsdl2/include/SDL_config.h
