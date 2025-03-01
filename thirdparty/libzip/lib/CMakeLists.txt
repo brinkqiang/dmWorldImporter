@@ -2,7 +2,7 @@ include(CheckFunctionExists)
 
 set(CMAKE_C_VISIBILITY_PRESET hidden)
 
-add_library(zip
+add_library(zip STATIC
   zip_add.c
   zip_add_dir.c
   zip_add_entry.c

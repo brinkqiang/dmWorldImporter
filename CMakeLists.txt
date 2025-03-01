@@ -8,7 +8,7 @@ INCLUDE(cmake/ModuleCompileOptions.cmake)
 ModuleSetCompileOptions()
 #ModuleSetWinCompilerFlags()
 
-add_definitions(-DUNICODE -D_UNICODE)
+add_definitions(-DUNICODE -D_UNICODE -DZIP_STATIC)
 ModuleImport("dmsdl2" "thirdparty/dmsdl2")
 ModuleImport("libzip" "thirdparty/libzip")
 
@@ -19,7 +19,7 @@ INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip")
 INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip/lib")
 INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/thirdparty/libzip")
 
-ADD_LIBRARY(libWorldImporter 
+ADD_LIBRARY(libWorldImporter STATIC
     WorldImporter/biome.cpp
 	WorldImporter/block.cpp
 	WorldImporter/blockstate.cpp
@@ -43,7 +43,6 @@ if (PROJECT_IS_TOP_LEVEL)
 
     ADD_EXECUTABLE(main 
     WorldImporter/main.cpp)
-    TARGET_LINK_LIBRARIES(main libWorldImporter SDL2-static)
-	add_dependencies(main zip )
+    TARGET_LINK_LIBRARIES(main libWorldImporter SDL2-static zip zlibstatic)
 endif(PROJECT_IS_TOP_LEVEL)
 
