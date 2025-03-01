@@ -19,25 +19,13 @@ INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip")
 INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip/lib")
 INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/thirdparty/libzip")
 
-ADD_LIBRARY(libWorldImporter STATIC
-    WorldImporter/biome.cpp
-	WorldImporter/block.cpp
-	WorldImporter/blockstate.cpp
-	WorldImporter/config.cpp
-	WorldImporter/coord_conversion.cpp
-	WorldImporter/dat.cpp
-	WorldImporter/decompressor.cpp
-	WorldImporter/EntityBlock.cpp
-	WorldImporter/fileutils.cpp
-	WorldImporter/GlobalCache.cpp
-	WorldImporter/JarReader.cpp
-	WorldImporter/model.cpp
-	WorldImporter/nbtutils.cpp
-	WorldImporter/objExporter.cpp
-	WorldImporter/PointCloudExporter.cpp
-	WorldImporter/RegionModelExporter.cpp
-	WorldImporter/texture.cpp
-	WorldImporter/version.cpp)
+FILE(GLOB_RECURSE LIBWORLDIMPORTER_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/*.cpp)
+
+LIST(FILTER LIBWORLDIMPORTER_SOURCES EXCLUDE REGEX "main.cpp$")
+
+ADD_LIBRARY(libWorldImporter STATIC ${LIBWORLDIMPORTER_SOURCES})
+
+TARGET_LINK_LIBRARIES(libWorldImporter dmsdl2 zip)
 
 if (PROJECT_IS_TOP_LEVEL)
 
