@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.21)
 
-PROJECT(WorldImporter)
+project(WorldImporter)
 
-LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-INCLUDE(cmake/ModuleImport.cmake)
-INCLUDE(cmake/ModuleCompileOptions.cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+include(cmake/ModuleImport.cmake)
+include(cmake/ModuleCompileOptions.cmake)
 ModuleSetCompileOptions()
 #ModuleSetWinCompilerFlags()
 
@@ -16,28 +16,28 @@ add_definitions(-DUNICODE -D_UNICODE -DZIP_STATIC)
 ModuleImport("dmsdl2" "thirdparty/dmsdl2")
 ModuleImport("libzip" "thirdparty/libzip")
 
-INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/include/nlohmann")
-INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/include")
-INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter")
-INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip")
-INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip/lib")
-INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/thirdparty/libzip")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/include/nlohmann")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/include")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/libzip/lib")
+include_directories("${CMAKE_BINARY_DIR}/thirdparty/libzip")
 
-FILE(GLOB_RECURSE LIBWORLDIMPORTER_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/*.cpp)
+file(GLOB_RECURSE LIBWORLDIMPORTER_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/*.cpp)
 
-LIST(FILTER LIBWORLDIMPORTER_SOURCES EXCLUDE REGEX "main.cpp$")
+list(FILTER LIBWORLDIMPORTER_SOURCES EXCLUDE REGEX "main.cpp$")
 
-ADD_LIBRARY(libWorldImporter STATIC ${LIBWORLDIMPORTER_SOURCES})
+add_library(libWorldImporter STATIC ${LIBWORLDIMPORTER_SOURCES})
 
-TARGET_LINK_LIBRARIES(libWorldImporter SDL2-static zip)
+target_link_libraries(libWorldImporter SDL2-static zip)
 
 if (PROJECT_IS_TOP_LEVEL)
 
-    ADD_EXECUTABLE(WorldImporter 
+    add_executable(WorldImporter 
     WorldImporter/main.cpp)
-    TARGET_LINK_LIBRARIES(WorldImporter libWorldImporter)
+    target_link_libraries(WorldImporter libWorldImporter)
 
-	ADD_CUSTOM_COMMAND(
+	add_custom_command(
 		TARGET WorldImporter
 		PRE_BUILD  # 或 POST_BUILD（根据需求）
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
