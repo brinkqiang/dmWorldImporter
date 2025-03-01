@@ -41,8 +41,17 @@ ADD_LIBRARY(libWorldImporter STATIC
 
 if (PROJECT_IS_TOP_LEVEL)
 
-    ADD_EXECUTABLE(main 
+    ADD_EXECUTABLE(WorldImporter 
     WorldImporter/main.cpp)
-    TARGET_LINK_LIBRARIES(main libWorldImporter SDL2-static zip zlibstatic)
+    TARGET_LINK_LIBRARIES(WorldImporter libWorldImporter SDL2-static zip zlibstatic)
+
+	ADD_CUSTOM_COMMAND(
+		TARGET WorldImporter
+		PRE_BUILD  # 或 POST_BUILD（根据需求）
+		COMMAND ${CMAKE_COMMAND} -E copy_directory
+			${CMAKE_CURRENT_SOURCE_DIR}/WorldImporter/config  # 源目录
+			$<TARGET_FILE_DIR:WorldImporter>/config          # 目标目录
+		COMMENT "Copying config directory to output..."
+	)
 endif(PROJECT_IS_TOP_LEVEL)
 
